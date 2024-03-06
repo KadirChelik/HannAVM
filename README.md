@@ -1,3 +1,0 @@
-# HannAVM
-
-deneme
