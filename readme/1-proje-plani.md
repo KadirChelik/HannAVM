@@ -1,0 +1,1 @@
+[plan]: ../readme/readme-img/Proje-plani.png "Proje Planı"
