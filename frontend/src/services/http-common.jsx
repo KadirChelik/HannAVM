@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: "http://localhost:5173", // your server base URL
+  baseURL: "http://hann-avm-frontend.vercel.app", // your server base URL
   headers: {
     "Accept": "application/json",
     "Content-Type": "application/json;charset=UTF-8"
