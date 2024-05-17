@@ -1,0 +1,140 @@
+[
+  {
+    "id": 1,
+    "photo1": "/img/product-1.jpg",
+    "photo2": "/img/product-2.jpg",
+    "photo3": "/img/product-3.jpg",
+    "name": "Çiçekli Elbise",
+    "stock": 56,
+    "discountedPrice": "199,99",
+    "price": "269,99",
+    "category": ["indirim", "kadın", "elbise", "seçtiklerimiz"],
+    "description": "Geniş kesim, çiçek desenli, kısa kollu, yuvarlak yaka, beli lastikli, kemerli, önü düğmeli, kumaş elbise."
+  },
+  {
+    "id": 2,
+    "photo1": "/img/product-2.jpg",
+    "photo2": "/img/product-4.jpg",
+    "photo3": "/img/product-1.jpg",
+    "name": "Beyaz Tişört",
+    "stock": 32,
+    "price": "499,99",
+    "category": ["yeni", "kadın", "tişört", "seçtiklerimiz", "çok satanlar"],
+    "description": "Beyaz, kısa kollu, yuvarlak yaka, kumaş tişört."
+  },
+  {
+    "id": 3,
+    "photo1": "/img/product-5.jpg",
+    "photo2": "/img/product-1.jpg",
+    "photo3": "/img/product-4.jpg",
+    "name": "Çiçek Desenli Etek",
+    "stock": 16,
+    "discountedPrice": "299,99",
+    "price": "399,99",
+    "category": ["indirim", "kadın", "etek", "seçtiklerimiz", "yeni"],
+    "description": "Çiçek desenli, kısa, beli lastikli, kumaş etek."
+  },
+  {
+    "id": 4,
+    "photo1": "/img/product-4.jpg",
+    "photo2": "/img/product-2.jpg",
+    "photo3": "/img/product-3.jpg",
+    "name": "Siyah Ceket",
+    "stock": 24,
+    "discountedPrice": "189,99",
+    "price": "249,99",
+    "category": ["indirim","kadın","yeni","ceket","seçtiklerimiz","çok satanlar"],
+    "description": "Siyah, uzun kollu, düğmeli, kumaş ceket."
+  },
+  {
+    "id": 5,
+    "photo1": "/img/product-5.jpg",
+    "photo2": "/img/product-6.jpg",
+    "photo3": "/img/product-1.jpg",
+    "name": "Çiçekli Bluz",
+    "stock": 30,
+    "price": "699,99",
+    "category": ["bluz", "kadın", "yeni", "çok satanlar", "seçtiklerimiz"],
+    "description": "Çiçek desenli, kısa kollu, yuvarlak yaka, kumaş bluz."
+  },
+  {
+    "id": 6,
+    "photo1": "/img/product-6.jpg",
+    "photo2": "/img/product-1.jpg",
+    "photo3": "/img/product-4.jpg",
+    "name": "Siyah Kaban",
+    "stock": 12,
+    "discountedPrice": "599,99",
+    "price": "749,99",
+    "category": ["indirim", "kadın","kaban", "siyah", "seçtiklerimiz"],
+    "description": "Siyah, uzun kollu, düğmeli, kumaş kaban."
+  },
+  {
+    "id": 7,
+    "photo1": "/img/product-1.jpg",
+    "photo2": "/img/product-3.jpg",
+    "photo3": "/img/product-2.jpg",
+    "name": "Çiçekli Yazlık Elbise",
+    "stock": 36,
+    "price": "324,99",
+    "category": ["indirim", "erkek", "elbise", "seçtiklerimiz", "yeni"],
+    "description": "Çiçek desenli, kısa kollu, yuvarlak yaka, beli lastikli, kumaş elbise."
+  },
+  {
+    "id": 8,
+    "photo1": "/img/product-2.jpg",
+    "photo2": "/img/product-1.jpg",
+    "photo3": "/img/product-5.jpg",
+    "name": "Pembe Gömlek",
+    "stock": 16,
+    "price": "549,99",
+    "category": ["seçtiklerimiz", "kadın", "gömlek", "çok satanlar"],
+    "description": "Pembe, uzun kollu, düğmeli, kumaş gömlek."
+  },
+  {
+    "id": 9,
+    "photo1": "/img/product-5.jpg",
+    "photo2": "/img/product-4.jpg",
+    "photo3": "/img/product-2.jpg",
+    "name": "Takım Elbise",
+    "stock": 26,
+    "discountedPrice": "329,99",
+    "price": "419,99",
+    "category": ["indirim", "erkek", "yeni","takım elbise", "çok satanlar", "seçtiklerimiz"],
+    "description": "Çiçek desenli, kısa kollu, yuvarlak yaka, beli lastikli, kumaş elbise."
+  },
+  {
+    "id": 10,
+    "photo1": "/img/product-4.jpg",
+    "photo2": "/img/product-2.jpg",
+    "photo3": "/img/product-6.jpg",
+    "name": "Mavi Sweatshirt",
+    "stock": 16,
+    "price": "189,99",
+    "category": ["sweatshirt","kadın","yeni","çok satanlar","seçtiklerimiz"],
+    "description": "Mavi, uzun kollu, düğmeli, kumaş sweatshirt."
+  },
+  {
+    "id": 11,
+    "photo1": "/img/product-5.jpg",
+    "photo2": "/img/product-4.jpg",
+    "photo3": "/img/product-2.jpg",
+    "name": "Kırmızı Kazak",
+    "stock": 46,
+    "discountedPrice": "169,99",
+    "price": "249,99",
+    "category": ["indirim","kadın","kazak","seçtiklerimiz","çok satanlar"],
+    "description": "Kırmızı, uzun kollu, düğmeli, kumaş kazak."
+  },
+  {
+    "id": 12,
+    "photo1": "/img/product-6.jpg",
+    "photo2": "/img/product-1.jpg",
+    "photo3": "/img/product-2.jpg",
+    "name": "Yeşil Abiye",
+    "stock": 8,
+    "price": "159,99",
+    "category": ["seçtiklerimiz", "kadın", "yeni","tesettür", "çok satanlar"],
+    "description": "Yeşil, uzun kollu, düğmeli, kumaş abiye."
+  }
+]
