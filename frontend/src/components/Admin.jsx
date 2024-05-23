@@ -3,18 +3,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight,faAngleLeft,faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { fetchProducts } from '../services/ProductDataService';
 import { NavLink } from 'react-router-dom';
+
 function Admin() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
       fetchProducts()
         .then(response => {
-          setProducts(response.data);
+          const updatedProducts = response.data.map(product => {
+            let totalStock = 0;
+
+            product.colors.forEach(color => {
+              color.sizes.forEach(size => {
+                totalStock += size.stock;
+              });
+            });
+
+            return {...product, stock: totalStock};
+          });
+
+          setProducts(updatedProducts);
         })
         .catch(error => {
           console.error('There was an error!', error);
         });
     }, []);
+
+    const renderStockInfo = (colors) => {
+      return colors.map(color => (
+        <div className='admin-colors' key={color.name}>
+          <div>{color.name}</div>
+          <hr />
+          <div className='admin-sizes-container'>
+          {color.sizes.map(size => (
+            <div className="admin-sizes" key={size.name} >
+              <div>{size.name}</div>
+              <div>{size.stock}</div> 
+            </div>
+          ))}
+          </div>
+          
+        </div>
+      ));
+    };
 
   return (
     <div className='admin-container'>
@@ -32,22 +63,18 @@ function Admin() {
             <div>Resim</div>
             <div>İsim</div>
             <div>Açıklama</div>
-            <div>Stok Adedi</div>
-            <div>Stok | Ürün</div>
+            <div>Stok</div>
+            <div>Ürün</div>
         </div>
         <div className='admin-table-list'>
             {products.map((product, index) => (
                 <div className='admin-table-row' key={index}>
                 <div>{product.id}</div>
-                <div><img src={product.photo1} alt="" /></div>
+                <div><img src={product.colors[0].photos[0]} alt="" /></div>
                 <div>{product.name}</div>
                 <div>{product.description}</div>
-                <div>{product.stock}</div>
+                <div>{renderStockInfo(product.colors)}</div>
                 <div>
-                    <div className='admin-stock-btn'>
-                    <button className='admin-btn1'>-</button>
-                    <button className='admin-btn1'>+</button>
-                    </div>
                     <div className='admin-product-btn'>
                     <NavLink to={`/updateproduct/${product.id}`}><button className='admin-btn2'>Güncelle</button></NavLink> 
                     <button className='admin-btn3'>Sil</button>

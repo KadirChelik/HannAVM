@@ -25,8 +25,8 @@ function Products() {
       id={product.id}
       slider="false"
       name={product.name}
-      photo1={product.photo1}
-      photo2={product.photo2}
+      photo1={product.colors[0].photos[0]}
+      photo2={product.colors[0].photos[1]}
       price={product.price}
       discountedPrice={product.discountedPrice}
       description={product.description}

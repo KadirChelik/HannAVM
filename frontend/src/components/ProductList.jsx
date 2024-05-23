@@ -1,20 +1,8 @@
 // ProductList.jsx
-import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../services/ProductDataService';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-function ProductList({ category, filters }) {
-    const [products, setProducts] = useState([]);
-  
-    useEffect(() => {
-      fetchProducts()
-        .then(response => {
-          setProducts(response.data);
-        })
-        .catch(error => {
-          console.error('There was an error!', error);
-        });
-    }, []);
-  
+function ProductList({ products }) {
+    
     return (
       <div>
         <div className='filter-results'>
@@ -22,8 +10,8 @@ function ProductList({ category, filters }) {
             <NavLink to={`/product/${product.id}`} key={index}>
               <div className="search-product">
                 <div className="product-images">
-                  <img src={product.photo1} alt="" className="default-image" />
-                  <img src={product.photo2} alt="" className="hover-image" />
+                  <img src={product.colors[0].photos[0]} alt="" className="default-image" />
+                  <img src={product.colors[0].photos[1]} alt="" className="hover-image" />
                 </div>    
                 <div className='product-info'>
                   <h5>{product.name}</h5>

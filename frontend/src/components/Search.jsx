@@ -188,8 +188,8 @@ function Search() {
           <NavLink to={`/product/${product.id}`} key={index}>
           <div className="search-product">
           <div className="product-images">
-            <img src={product.photo1} alt="" className="default-image" />
-            <img src={product.photo2} alt="" className="hover-image" />
+            <img src={product.colors[0].photos[0]} alt="" className="default-image" />
+            <img src={product.colors[0].photos[1]} alt="" className="hover-image" />
           </div>    
         <div className='product-info'>
         <h5>{product.name}</h5>

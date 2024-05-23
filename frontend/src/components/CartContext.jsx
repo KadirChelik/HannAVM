@@ -7,14 +7,18 @@ const CartContext = createContext();
 const cartReducer = (state, action) => {
     switch (action.type) {
       case 'ADD_TO_CART':
-        const existingProductIndex = state.findIndex(product => product.id === action.product.id);
-        if (existingProductIndex >= 0) {
-          const newState = [...state];
-          newState[existingProductIndex].quantity += 1;
-          return newState;
-        } else {
-          return [...state, { ...action.product, quantity: 1 }];
-        }
+  const existingProductIndex = state.findIndex(product => 
+    product.id === action.product.id && 
+    product.color.value === action.product.color.value && 
+    product.size.value === action.product.size.value
+  );
+  if (existingProductIndex >= 0) {
+    const newState = [...state];
+    newState[existingProductIndex].quantity += 1;
+    return newState;
+  } else {
+    return [...state, { ...action.product, quantity: 1 }];
+  }
       case 'REMOVE_FROM_CART':
         return state.filter((item) => item.id !== action.id);
       case 'LOAD_CART':

@@ -26,16 +26,16 @@ function Cart() {
         ) :
           (cart.map((product, index) => (
           <div className='cart-product-box' key={index}>
-            <img src={product.photo1} alt="" />
+            <img src={product.color.photos[0]} alt="" />
             <div className='cart-right-box'>
             <div className='cart-right-top-box'>
               <h5>{product.name}</h5>
               <button className='cart-trash-button' onClick={() => removeFromCart(product.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
             </div>
             <div className='cart-right-mid-box'>
-              <p>Renk: Siyah </p>
-              <p>Beden: M</p>
-            </div>
+  <p>Renk: {product.color.name}</p>
+  <p>Beden: {product.size}</p>
+</div>
             <div className='cart-right-bottom-box'>
             <div className='quantity-box'> <button onClick={() => decreaseQuantity(product.id)}><FontAwesomeIcon icon={faMinus} /></button> <div className='quantity-num'>{product.quantity}</div> <button onClick={() => increaseQuantity(product.id)}><FontAwesomeIcon icon={faPlus} /></button>  </div>
             <div className='cart-price'>{product.price} TL</div>
