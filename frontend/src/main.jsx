@@ -16,8 +16,10 @@ import UpdateProduct from './components/UpdateProduct';
 import Search from './components/Search';
 import SubCategoryPage from './components/SubCategoryPage';
 import MainCategoryPage from './components/MainCategoryPage';
+import OrderManagement from './components/OrderManagement';
+import UserManagement from './components/UserManagement';
+import ProductManagement from './components/ProductManagement';
 import "./App.css";
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <CartProvider>
@@ -40,6 +42,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Route path="/payment" element={<Payment/>}/>
     <Route path="/product/:id" element={<ProductDetails/>}/>
     <Route path="/admin" element={<Admin/>}/>
+    <Route path="/order-management" element={<OrderManagement/>}/>
+    <Route path="/user-management" element={<UserManagement/>}/>
+    <Route path="/product-management" element={<ProductManagement/>}/>
     <Route path="/addproduct" element={<AddProduct/>}/>
     <Route path="/updateproduct/:id" element={<UpdateProduct/>}/>
     <Route path="*" element={<PageNotFound/>} />

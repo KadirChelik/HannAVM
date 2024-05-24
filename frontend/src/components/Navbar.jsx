@@ -9,7 +9,6 @@ import {
   faHeart,
   faBars,
   faXmark,
-  faCaretDown,
   faRightToBracket,
   faImagePortrait,
 } from "@fortawesome/free-solid-svg-icons";
@@ -124,10 +123,10 @@ function NavBar() {
                       : "links-hover"
                   }
                 >
-                  Kadın{" "}
+                  Kadın{" "}<i className={dropdownMenu === "woman"?"fa-solid fa-caret-down links-hover active":"fa-solid fa-caret-down"}></i>
                 </span>
               </NavLink>
-              <FontAwesomeIcon icon={faCaretDown} />
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("man")}
@@ -142,10 +141,10 @@ function NavBar() {
                       : "links-hover"
                   }
                 >
-                  Erkek{" "}
+                  Erkek{" "}<i className={dropdownMenu === "man"?"fa-solid fa-caret-down links-hover active":"fa-solid fa-caret-down"}></i>
                 </span>
               </NavLink>
-              <FontAwesomeIcon icon={faCaretDown} />
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("child")}
@@ -160,10 +159,10 @@ function NavBar() {
                       : "links-hover"
                   }
                 >
-                  Çocuk{" "}
+                  Çocuk{" "}<i className={dropdownMenu === "child"?"fa-solid fa-caret-down links-hover active":"fa-solid fa-caret-down"}></i>
                 </span>
               </NavLink>
-              <FontAwesomeIcon icon={faCaretDown} />
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("accessory")}
@@ -179,10 +178,10 @@ function NavBar() {
                       : "links-hover"
                   }
                 >
-                  Aksesuar{" "}
+                  Aksesuar{" "}<i className={dropdownMenu === "accessory"?"fa-solid fa-caret-down links-hover active":"fa-solid fa-caret-down"}></i>
                 </span>
               </NavLink>
-              <FontAwesomeIcon icon={faCaretDown} />
+              
             </li>
           </ul>
           <ul className="my-icons-ul">
