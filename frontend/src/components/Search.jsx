@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { fetchProducts } from '../services/ProductDataService';
+import { productReducer, initialState } from '../services/ProductReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faTimes,faAngleLeft,faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom';
+import Loading from './Loading';
 function Search() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -71,12 +73,27 @@ function Search() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [searchHistory, setSearchHistory] = useState([]);
 
-  useEffect(() => {
-    fetchProducts().then(response => {
-      setProducts(response.data);
-      setSearchResults(response.data);
-    });
-  }, []);
+ 
+
+  const [state, dispatch] = useReducer(productReducer, initialState);
+
+    useEffect(() => {
+      dispatch({ type: 'FETCH_INIT' });
+      fetchProducts()
+        .then(response => {
+          dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
+          
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+          dispatch({ type: 'FETCH_FAILURE' });
+        });
+    }, []);
+
+    useEffect(() => {
+      setProducts(state.products);
+      setSearchResults(state.products);
+    }, [state.products]);
 
   const handleChange = event => {
     setSearchTerm(event.target.value);
@@ -183,7 +200,8 @@ function Search() {
           </div>
         )}
       </form>
-      <div className='search-results'>
+      
+      {state.isLoading? <Loading/> : state.isError ? (<p>Ürünler alınamadı.</p>) : (<div className='search-results'>
         {searchResults.map((product, index) => (
           <NavLink to={`/product/${product.id}`} key={index}>
           <div className="search-product">
@@ -200,7 +218,7 @@ function Search() {
         </div>
         </NavLink>
         ))}
-      </div>
+      </div>)}
       <div className='admin-page-control-container'>
         <div className='admin-page-control'>
         <button className='admin-btn5'><FontAwesomeIcon icon={faAngleLeft} /></button>

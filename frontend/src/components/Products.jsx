@@ -1,28 +1,31 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Product from './Product';
 import { fetchProducts } from '../services/ProductDataService';
-
+import { productReducer, initialState } from '../services/ProductReducer';
+import Loading from './Loading';
 function Products() {
 
     const [category,setCategory] = useState("seçtiklerimiz");
-    const [products, setProducts] = useState([]);
+    const [state, dispatch] = useReducer(productReducer, initialState);
 
     useEffect(() => {
+      dispatch({ type: 'FETCH_INIT' });
       fetchProducts()
         .then(response => {
-          setProducts(response.data);
+          dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
         })
         .catch(error => {
           console.error('There was an error!', error);
+          dispatch({ type: 'FETCH_FAILURE' });
         });
     }, []);
   
-  const filteredProducts = category === 'all' ? products : products.filter(product => product.category.includes(category));
-
+    const filteredProducts = category === 'all' ? state.products : state.products.filter(product => product.category.includes(category));
+  
   const productList = filteredProducts.map(product => (
     <Product
       key={product.id}
-      id={product.id}
+      id={product._id}
       slider="false"
       name={product.name}
       photo1={product.colors[0].photos[0]}
@@ -44,10 +47,12 @@ function Products() {
         <button className={category === 'seçtiklerimiz' ? 'active' : ''} onClick={() => handleCategoryChange('seçtiklerimiz')}>Sizin İçin Seçtiklerimiz</button>
         <button className={category === 'yeni' ? 'active' : ''} onClick={() => handleCategoryChange('yeni')}>Yeniler</button>
         <button className={category === 'çok satanlar' ? 'active' : ''} onClick={() => handleCategoryChange('çok satanlar')}>Çok Satanlar</button>
-      </div>
-      <div className='products-container'>
-        {productList}
-      </div>
+      </div>{state.isLoading ? <Loading /> :
+                state.isError ? <p>Ürünler alınamadı.</p> :
+                    <div className='products-container'>
+                        {productList}
+                    </div>
+            }
     </div>
   );
 }

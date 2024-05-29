@@ -42,11 +42,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Route path="/payment" element={<Payment/>}/>
     <Route path="/product/:id" element={<ProductDetails/>}/>
     <Route path="/admin" element={<Admin/>}/>
-    <Route path="/order-management" element={<OrderManagement/>}/>
-    <Route path="/user-management" element={<UserManagement/>}/>
-    <Route path="/product-management" element={<ProductManagement/>}/>
-    <Route path="/addproduct" element={<AddProduct/>}/>
-    <Route path="/updateproduct/:id" element={<UpdateProduct/>}/>
+    <Route path="/admin/order-management" element={<OrderManagement/>}/>
+    <Route path="/admin/user-management" element={<UserManagement/>}/>
+    <Route path="/admin/product-management" element={<ProductManagement/>}/>
+    <Route path="/admin/product-management/add-product" element={<AddProduct/>}/>
+    <Route path="/admin/product-management/update-product/:id" element={<UpdateProduct/>}/>
     <Route path="*" element={<PageNotFound/>} />
     </Route>
     </Routes>

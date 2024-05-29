@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { addProduct, fetchProducts } from '../services/ProductDataService';
 
 function AddProduct() {
   const [product, setProduct] = useState({
+    id: '',
     name: '',
     description: '',
     category: '',
@@ -9,7 +11,7 @@ function AddProduct() {
     discountedPrice: '',
     brand: '',
     fit: '',
-    material:'',
+    material: '',
     colors: []
   });
 
@@ -26,6 +28,18 @@ function AddProduct() {
 
   const fileInputRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
   const [photos, setPhotos] = useState([null, null, null]);
+
+  useEffect(() => {
+    fetchProducts()
+      .then(response => {
+        const products = response.data;
+        const lastProductId = Math.max(...products.map(product => product.id), 0); // Eğer ürün yoksa, 0 dönecek
+        setProduct(prevState => ({ ...prevState, id: lastProductId + 1 }));
+      })
+      .catch(error => {
+        console.error('Ürünler alınırken bir hata oluştu!', error);
+      });
+  }, []);
 
   const handleDrop = (index, e) => {
     e.preventDefault();
@@ -93,10 +107,54 @@ function AddProduct() {
     setPhotos([null, null, null]);
   };
 
+  const handleDeleteColor = (index) => {
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      colors: prevProduct.colors.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleIncrementSize = (colorIndex, sizeIndex) => {
+    const newColors = [...product.colors];
+    newColors[colorIndex].sizes[sizeIndex].stock = parseInt(newColors[colorIndex].sizes[sizeIndex].stock, 10) + 1;
+    setProduct({ ...product, colors: newColors });
+  };
+
+  const handleDecrementSize = (colorIndex, sizeIndex) => {
+    const newColors = [...product.colors];
+    if (newColors[colorIndex].sizes[sizeIndex].stock > 0) {
+      newColors[colorIndex].sizes[sizeIndex].stock -= 1;
+      if (newColors[colorIndex].sizes[sizeIndex].stock === 0) {
+        newColors[colorIndex].sizes.splice(sizeIndex, 1);
+      }
+      setProduct({ ...product, colors: newColors });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(product);
-    alert("Ürün başarıyla eklendi!")
+
+    addProduct(product)
+      .then(response => {
+        console.log(response);
+        alert('Ürün başarıyla eklendi!');
+        setProduct({
+          id: '',
+          name: '',
+          description: '',
+          category: '',
+          price: '',
+          discountedPrice: '',
+          brand: '',
+          fit: '',
+          material: '',
+          colors: []
+        });
+      })
+      .catch(error => {
+        console.error('Ürün eklenirken bir hata oluştu:', error.response?.data || error.message);
+        alert(`Ürün eklenirken bir hata oluştu: ${error.response?.data || error.message}`);
+      });
   };
 
   return (
@@ -267,11 +325,11 @@ function AddProduct() {
               Renk Ekle
             </button>
             <ul className='addproduct-colors-container'>
-              {product.colors.map((color, index) => (
-                <div key={index}>
+              {product.colors.map((color, colorIndex) => (
+                <div key={colorIndex}>
                   <div className='addproduct-delete-color'>
                   <h6>{color.name}</h6>
-                  <button className='addproduct-delete-btn' type='button' onClick={() => handleDeleteColor(index)}>
+                  <button className='addproduct-delete-btn' type='button' onClick={() => handleDeleteColor(colorIndex)}>
                   <span className="fa-solid fa-trash-can"></span>
                   </button>                
                   </div>
@@ -281,10 +339,19 @@ function AddProduct() {
                   ))}
                   </div>
                   <div  className='addproduct-colors-photos'>
-                  {color.sizes.map((size, index) => (
-                      <div className='addproduct-colors-sizes' key={index}>
-                        {size.name} - {size.stock}
+                  {color.sizes.map((size, sizeIndex) => (
+                      <div className='addproduct-colors-sizes' key={sizeIndex}>
+                      <div>{size.name} - {size.stock}</div>
+                      <div className='addproduct-size-buttons'>
+
+                      <button type='button' onClick={() => handleIncrementSize(colorIndex, sizeIndex)}>
+                        +
+                      </button>
+                      <button type='button' onClick={() => handleDecrementSize(colorIndex, sizeIndex)}>
+                        -
+                      </button>
                       </div>
+                    </div>
                     ))}
                   </div>
                   

@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import FilterSidebar from './FilterSidebar';
 import ProductList from './ProductList';
 import { useMatch } from 'react-router-dom';
 import { fetchProducts } from '../services/ProductDataService';
+import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
 
 function SubCategoryPage() {
   const match = useMatch('/:mainCategory/:subCategory');
   const { mainCategory, subCategory } = match.params;
   const [filters, setFilters] = useState({});
-  const [products, setProducts] = useState([]);
+  const [state, dispatch] = useReducer(productReducer, initialState);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch({ type: 'FETCH_INIT' });
     fetchProducts()
       .then(response => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-        setLoading(false);
+        dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
       })
       .catch(error => {
         console.error('There was an error!', error);
-        setLoading(false);
+        dispatch({ type: 'FETCH_FAILURE' });
       });
   }, []);
 
@@ -33,7 +32,7 @@ function SubCategoryPage() {
       'erkek': 'erkek',
       'cocuk': 'çocuk',
       'aksesuar': 'aksesuar',
-      'ic-giyim': 'iç Giyim',
+      'ic-giyim': 'iç giyim',
       'tisort': 'tişört',
       'gomlek': 'gömlek',
       'tesettur': 'tesettür',
@@ -42,7 +41,7 @@ function SubCategoryPage() {
       'ayakkabi': 'ayakkabı',
       'sort': 'şort',
       'esofman': 'eşofman',
-      'takim-elbise': 'takım Elbise',
+      'takim-elbise': 'takım elbise',
       'canta': 'çanta',
       'parfum': 'parfüm',
       'taki': 'takı',
@@ -63,16 +62,15 @@ function SubCategoryPage() {
   }, [mainCategory, subCategory]);
 
   useEffect(() => {
-    setLoading(true);
     applyFilters();
-  }, [filters, products]);
+  }, [filters, state.products]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
 
   const applyFilters = () => {
-    let filtered = products;
+    let filtered = state.products;
 
     filtered = filtered.filter(product => {
       return Object.keys(filters).every(filterCategory => {
@@ -108,7 +106,6 @@ function SubCategoryPage() {
     });
 
     setFilteredProducts(filtered);
-    setLoading(false);
   };
 
   const pageTitles = {
@@ -136,7 +133,7 @@ function SubCategoryPage() {
     'sapka': 'Şapka',
   };
 
-  const pageTitle = pageTitles[mainCategory] || location.pathname.slice(1);
+  const pageTitle = pageTitles[mainCategory] || mainCategory.charAt(0).toUpperCase() + mainCategory.slice(1);
   const subCategoryCapitalized = pageTitles[subCategory] || subCategory.charAt(0).toUpperCase() + subCategory.slice(1);
 
   return (
@@ -144,7 +141,7 @@ function SubCategoryPage() {
       <h1>{pageTitle} {subCategoryCapitalized}</h1>
       <div className='category-page-container'>
         <FilterSidebar onFilterChange={handleFilterChange} products={filteredProducts} activeFilters={filters} />
-        {loading ? <Loading /> : <ProductList products={filteredProducts} />}
+        {state.isLoading ? <Loading /> : state.isError ? <p>Ürünler alınamadı.</p> : <ProductList products={filteredProducts} />}
       </div>
     </div>
   );

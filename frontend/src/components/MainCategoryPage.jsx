@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useLocation } from 'react-router-dom';
 import FilterSidebar from './FilterSidebar';
 import ProductList from './ProductList';
 import { fetchProducts } from '../services/ProductDataService';
+import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
 
 function MainCategoryPage() {
   const location = useLocation();
   const [filters, setFilters] = useState({});
-  const [products, setProducts] = useState([]);
+  const [state, dispatch] = useReducer(productReducer, initialState);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch({ type: 'FETCH_INIT' });
     fetchProducts()
       .then(response => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-        setLoading(false);
+        dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
       })
       .catch(error => {
         console.error('There was an error!', error);
-        setLoading(false);
+        dispatch({ type: 'FETCH_FAILURE' });
       });
   }, []);
 
@@ -45,16 +44,15 @@ function MainCategoryPage() {
   }, [location.pathname]);
 
   useEffect(() => {
-    setLoading(true);
     applyFilters();
-  }, [filters, products]);
+  }, [filters, state.products]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
 
   const applyFilters = () => {
-    let filtered = products;
+    let filtered = state.products;
 
     filtered = filtered.filter(product => {
       return Object.keys(filters).every(filterCategory => {
@@ -90,7 +88,6 @@ function MainCategoryPage() {
     });
 
     setFilteredProducts(filtered);
-    setLoading(false);
   };
 
   const pageTitles = {
@@ -108,7 +105,7 @@ function MainCategoryPage() {
       <h1>{pageTitle}</h1>
       <div className='category-page-container'>
         <FilterSidebar onFilterChange={handleFilterChange} products={filteredProducts} activeFilters={filters} />
-        {loading ? <Loading /> : <ProductList products={filteredProducts} />}
+        {state.isLoading ? <Loading /> : state.isError ? <p>Ürünler alınamadı.</p> : <ProductList products={filteredProducts} />}
       </div>
     </div>
   );

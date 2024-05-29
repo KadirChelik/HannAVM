@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Product from './Product';
 import { fetchProducts } from '../services/ProductDataService';
-
+import { productReducer, initialState } from '../services/ProductReducer';
+import Loading from './Loading';
 function Slider() {
-  const [products, setProducts] = useState([]);
+  const [state, dispatch] = useReducer(productReducer, initialState);
 
   useEffect(() => {
+    dispatch({ type: 'FETCH_INIT' });
     fetchProducts()
       .then(response => {
-        setProducts(response.data);
+        dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
       })
       .catch(error => {
         console.error('There was an error!', error);
+        dispatch({ type: 'FETCH_FAILURE' });
       });
   }, []);
-  const productList= products.map(product => (
+
+  const productList= state.products.map(product => (
     <Product
       key={product.id}
       id={product.id}
@@ -65,7 +69,7 @@ function Slider() {
   return (
     <div className='slider'>
       <h1>Şık Seçenekler</h1>
-    <div className='slider-carousel'>
+    {state.isLoading? <Loading/> : state.isError ? (<p>Ürünler alınamadı.</p>) :(<div className='slider-carousel'>
       <Carousel
       renderButtonGroupOutside={true} 
     customTransition="all 1s ease-in-out" 
@@ -98,7 +102,7 @@ function Slider() {
   <div >{productList[10]}</div>
   <div >{productList[11]}</div>
 </Carousel>
-    </div>
+    </div>)}
     </div>
     
     

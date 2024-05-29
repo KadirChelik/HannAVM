@@ -1,14 +1,38 @@
 // productReducer.js
 const initialState = {
-  products: []
+  products: [],
+  product: null,
+  isLoading: false,
+  isError: false
 };
 
 export function productReducer(state = initialState, action) {
   switch (action.type) {
+    case 'FETCH_INIT':
+      return {
+        ...state,
+        isLoading: true,
+        isError: false
+      };
     case 'FETCH_PRODUCTS':
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
+        isLoading: false,
+        isError: false
+      };
+    case 'FETCH_PRODUCT':
+      return {
+        ...state,
+        product: action.payload,
+        isLoading: false,
+        isError: false
+      };
+    case 'FETCH_FAILURE':
+      return {
+        ...state,
+        isLoading: false,
+        isError: true
       };
     case 'ADD_PRODUCT':
       return {
@@ -31,3 +55,5 @@ export function productReducer(state = initialState, action) {
       return state;
   }
 }
+export { initialState };
+export default productReducer;
