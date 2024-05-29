@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { addProduct, fetchProducts } from '../services/ProductDataService';
+import { addProduct, fetchProducts, getSignedUrl, uploadFileToSignedUrl } from '../services/ProductDataService';
 
 function AddProduct() {
   const [product, setProduct] = useState({
@@ -28,6 +28,7 @@ function AddProduct() {
 
   const fileInputRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
   const [photos, setPhotos] = useState([null, null, null]);
+  const [fileUrls, setFileUrls] = useState([null, null, null]);
 
   useEffect(() => {
     fetchProducts()
@@ -41,29 +42,47 @@ function AddProduct() {
       });
   }, []);
 
-  const handleDrop = (index, e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    previewImage(index, file);
-  };
-
-  const handleFileInputChange = (index, e) => {
-    const file = e.target.files[0];
-    previewImage(index, file);
-  };
-
   const previewImage = (index, file) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
     reader.onloadend = () => {
       const newPhotos = [...photos];
       newPhotos[index] = reader.result;
       setPhotos(newPhotos);
-
-      const newColor = { ...currentColor };
-      newColor.photos = newPhotos;
-      setCurrentColor(newColor);
     };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrop = (index, e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    const content_type = file.type;
+    const key = `test/image/${file.name}`;
+    getSignedUrl({ key, content_type })
+      .then(response => {
+        const newSignedUrls = [...fileUrls];
+        newSignedUrls[index] = (response.data.data);
+        setFileUrls(newSignedUrls);
+        previewImage(index, file);
+      })
+      .catch(error => {
+        console.error('Signed URL alınırken bir hata oluştu!', error);
+      });
+  };
+
+  const handleFileInputChange = (index, e) => {
+    const file = e.target.files[0];
+    const content_type = file.type;
+    const key = `test/image/${file.name}`;
+    getSignedUrl({ key, content_type })
+      .then(response => {
+        const newSignedUrls = [...fileUrls];
+        newSignedUrls[index] = (response.data.data);
+        setFileUrls(newSignedUrls);
+        previewImage(index, file);
+      })
+      .catch(error => {
+        console.error('Signed URL alınırken bir hata oluştu!', error);
+      });
   };
 
   const handleProductChange = (e) => {
@@ -99,9 +118,22 @@ function AddProduct() {
   };
 
   const handleAddColor = () => {
+    const newColor = { ...currentColor };
+    fileUrls.forEach((data, index) => {
+    console.log(data);
+    })
+    newColor.photos = fileUrls.map((data) => data ? data.fileLink : null).filter(url => url);
+
+    fileUrls.forEach((data, index) => {
+      if (data) {
+        uploadFileToSignedUrl(data.signedUrl, fileInputRefs.current[index].current.files[0], fileInputRefs.current[index].current.files[0].type, null, () => {});
+        console.log("Fotoğraflar S3'e yüklendi");
+      }
+    });
+
     setProduct((prevProduct) => ({
       ...prevProduct,
-      colors: [...prevProduct.colors, currentColor]
+      colors: [...prevProduct.colors, newColor]
     }));
     setCurrentColor({ name: '', photos: [], sizes: [] });
     setPhotos([null, null, null]);
@@ -133,7 +165,7 @@ function AddProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(product);
     addProduct(product)
       .then(response => {
         console.log(response);

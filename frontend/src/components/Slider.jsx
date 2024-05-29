@@ -23,7 +23,7 @@ function Slider() {
   const productList= state.products.map(product => (
     <Product
       key={product.id}
-      id={product.id}
+      id={product._id}
       slider="true"
       name={product.name}
       photo1={product.colors[0].photos[0]}

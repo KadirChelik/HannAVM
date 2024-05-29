@@ -203,7 +203,7 @@ function Search() {
       
       {state.isLoading? <Loading/> : state.isError ? (<p>Ürünler alınamadı.</p>) : (<div className='search-results'>
         {searchResults.map((product, index) => (
-          <NavLink to={`/product/${product.id}`} key={index}>
+          <NavLink to={`/product/${product._id}`} key={index}>
           <div className="search-product">
           <div className="product-images">
             <img src={product.colors[0].photos[0]} alt="" className="default-image" />

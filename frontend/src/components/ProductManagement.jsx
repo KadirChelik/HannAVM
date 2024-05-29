@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleLeft, faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { fetchProducts, deleteProduct } from '../services/ProductDataService';
 import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
@@ -8,6 +8,8 @@ import { NavLink } from 'react-router-dom';
 
 function ProductManagement() {
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [state, dispatch] = useReducer(productReducer, initialState);
   const [confirmDeleteProductId, setConfirmDeleteProductId] = useState(null);
 
@@ -15,7 +17,8 @@ function ProductManagement() {
     dispatch({ type: 'FETCH_INIT' });
     fetchProducts()
       .then(response => {
-        dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
+        const sortedProducts = response.data.sort((a, b) => a.id - b.id);
+        dispatch({ type: 'FETCH_PRODUCTS', payload: sortedProducts });
       })
       .catch(error => {
         console.error('There was an error!', error);
@@ -37,6 +40,7 @@ function ProductManagement() {
     });
 
     setProducts(updatedProducts);
+    setSearchResults(updatedProducts);
   }, [state.products]);
 
   const renderStockInfo = colors => {
@@ -64,10 +68,10 @@ function ProductManagement() {
     if (confirmDeleteProductId) {
       deleteProduct(confirmDeleteProductId)
         .then(response => {
-          // Reload products after deletion
           fetchProducts()
             .then(response => {
-              dispatch({ type: 'FETCH_PRODUCTS', payload: response.data });
+              const sortedProducts = response.data.sort((a, b) => a.id - b.id);
+              dispatch({ type: 'FETCH_PRODUCTS', payload: sortedProducts });
             })
             .catch(error => {
               console.error('There was an error!', error);
@@ -83,13 +87,59 @@ function ProductManagement() {
     }
   };
 
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+    if (event.target.value.trim() === '') {
+      setSearchResults(products);
+      return;
+    }
+
+    const searchTerm = event.target.value.trim().toLowerCase();
+    const isNumericSearch = !isNaN(searchTerm);
+
+    const results = products.filter(product => {
+      if (isNumericSearch) {
+        return product.id === parseInt(searchTerm);
+      } else {
+        const keywords = searchTerm.split(' ');
+        return keywords.every(keyword =>
+          product.name.toLowerCase().includes(keyword) ||
+          product.colors.some(color => color.name.toLowerCase().includes(keyword)) ||
+          (product.description && product.description.toLowerCase().includes(keyword)) ||
+          (product.category && product.category.some(category => category.toLowerCase().includes(keyword)))
+        );
+      }
+    });
+
+    setSearchResults(results);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSearchResults(products);
+  };
+
   return (
     <div className='admin-container'>
       <h1>Ürün Yönetimi</h1>
       <div className='admin-btn-container'>
         <div className='admin-search-box'>
-          <input type='text' name='search' className='admin-searcher' placeholder='Ürün Ara...' />
-          <span className='admin-search-icon'> <FontAwesomeIcon icon={faMagnifyingGlass} />  </span>
+          <input
+            type='text'
+            name='search'
+            className='admin-searcher'
+            placeholder='ID, İsim, Renk, Kategori veya Açıklama ara...'
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          {searchTerm && (
+            <button className='clear-button1' onClick={handleClearSearch}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          )}
+          <span className='admin-search-icon'>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </span>
         </div>
         <NavLink to='/admin/product-management/add-product'><button className='admin-btn4'>Ürün Ekle</button></NavLink>
       </div>
@@ -104,15 +154,17 @@ function ProductManagement() {
         </div>
         {state.isLoading ? <Loading /> : state.isError ? <p>Ürünler alınamadı.</p> : (
           <div className='admin-table-list'>
-            {products.map((product, index) => (
+            {searchResults.map((product, index) => (
               <div className='admin-table-row' key={index}>
                 <div className='admin-table-col1'>{product.id}</div>
                 <div className='admin-table-col2'>
-  {product.colors && product.colors.length > 0 && product.colors[0].photos && product.colors[0].photos.length > 0 ? (
-    <img src={product.colors[0].photos[0]} alt='' />
-  ) : "-"}
-</div>
-
+                <NavLink to={`/product/${product._id}`}>
+                  {product.colors && product.colors.length > 0 && product.colors[0].photos && product.colors[0].photos.length > 0 ? (
+                    <img src={product.colors[0].photos[0]} alt='' />
+                  ) : "-"}
+                  </NavLink>
+                </div>
+                
                 <div className='admin-table-col3'>{product.name}</div>
                 <div className='admin-table-col4'>{product.description}</div>
                 <div className='admin-table-col5'>{renderStockInfo(product.colors)}</div>

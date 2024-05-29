@@ -1094,6 +1094,16 @@ input:focus {
   right: 50px;
 }
 
+.clear-button1 {
+  width: 10px;
+  height: 34px;
+  position: absolute;
+  border: none;
+  background-color: #ffffff;
+  top: 1px;
+  right: 50px;
+}
+
 .search-button:hover {
   cursor: pointer;
   background-color: rgb(170, 169, 169, 0.6);
