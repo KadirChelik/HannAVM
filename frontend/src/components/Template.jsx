@@ -2,20 +2,24 @@ import React, { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Breadcrumbs from "./Breadcrumbs"; // Yeni eklendi
 import "../App.css";
 
-const Template = () => {
+const Template = ({ isAdmin, setIsAdmin, authControl, setAuthControl }) => {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
+  
   return (
     <div>
-      <Navbar />
+      <Navbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} authControl={authControl} setAuthControl={setAuthControl} />
       <div className="my-container">
-        <Outlet/>   
-        <Footer />    
+        {/* Breadcrumbs bileşenini ekleyin */}
+        <Breadcrumbs />
+        <Outlet />
+        <Footer />
       </div>
     </div>
   );

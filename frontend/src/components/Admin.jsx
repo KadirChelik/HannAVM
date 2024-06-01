@@ -1,8 +1,17 @@
 import React from 'react';
 import {NavLink}  from 'react-router-dom';
 
-function Admin() {
-  return (
+function Admin({userName,isAdmin}) {
+  if (!isAdmin) {
+    console.log('isAdmin:', isAdmin);
+    return (
+      <div className='admin-main-container0'>
+        <h1>Yetkili değilsiniz!</h1>
+      </div>
+    ) // isAdmin false ise, hiçbir şey render etme
+  }
+  return (<div className='admin-main-container0'>
+        <h1>Hoşgeldin {userName}!</h1>
     <div className='admin-main-container'>
         <NavLink to="/admin/order-management">
         <button>
@@ -20,6 +29,8 @@ function Admin() {
         </button>
         </NavLink>
     </div>
+  </div>
+    
   )
 }
 

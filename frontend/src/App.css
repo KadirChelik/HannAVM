@@ -451,6 +451,37 @@ input:focus {
   z-index: 0 !important;
 }
 
+.breadcrumb{
+  position: absolute;
+  top: 106px;
+  left: 50px;
+  z-index: 20;
+}
+
+.breadcrumb li{
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item{
+  font-size: 15px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  text-transform: capitalize;
+}
+
+.breadcrumb-item+.breadcrumb-item {
+  padding-left: 0 !important;
+}
+
+.breadcrumb-icon{
+    font-size: 10px;
+    padding-top: 4px;
+    margin-right: 5px;
+}
 /* NAVBAR@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
 /* MARQUEE@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
@@ -1254,6 +1285,12 @@ input:focus {
   height: 230px;
 }
 
+.sign-in-form{
+  display: flex;
+  justify-content: space-between !important;
+  height: 320px !important;
+}
+
 .sign-in-input {
   padding: 10px;
   border-radius: 5px;
@@ -1291,6 +1328,9 @@ input:focus {
   right: 11px;
 }
 
+.password-icon i {
+  color: #757575;
+}
 .show-icon {
   right: 12px;
 }
@@ -1328,6 +1368,21 @@ input:focus {
   margin-left: 5px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.password-info{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  margin: 10px 0 0 0;
+}
+
+.password-error{
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 /* REGISTER@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
@@ -1494,29 +1549,50 @@ input:focus {
   padding: 10px;
 }
 
+.cart-checkout-container {
+  width: 55vw;
+}
+
 .cart-checkout {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
-  width: 55vw;
+  width: 100%;
   padding: 10px 80px 10px 80px;
   border-radius: 10px;
   border: 1px solid rgb(170, 169, 169, 0.6);
   background-color: #ffffff;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
+  margin-top: 10px !important;
+  transition: all 0.4s ease-in-out;
+}
+
+.cart-checkout:hover{
+  background-color: #252525;
+}
+
+.cart-checkout:hover div{
+  color: #ffffff;
+  transition: 0.4s ease-in-out;
+}
+
+.cart-checkout:not(:hover) div{
+  color: #000000;
+  transition: 0.4s ease-in-out;
 }
 
 .cart-checkout:hover .checkout-icon {
+  color: #ffffff;
   transform: translateX(8px);
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .cart-checkout:not(:hover) .checkout-icon {
   transform: translateX(0px);
-  transition: transform 0.3s ease-in-out;
+  color: #000000;
+  transition: all 0.4s ease-in-out;
 }
 /* CART@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
@@ -1679,10 +1755,260 @@ input:focus {
 
 /* PRODUCTDETAILS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
+
+/* ACCOUNT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
+.my-account-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+.my-account-header{
+  display: flex;
+  
+  gap: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.my-account-header i{
+  font-size: 30px;
+  padding-top: 7px;
+}
+.my-account-content-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 65vw;
+}
+.my-account-links{
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: start;
+  height: 90vh;
+  flex-direction: column;
+}
+
+.my-account-links button{
+  display: flex;
+  justify-content: start;
+  gap: 6px;
+  align-items: center;
+  width: 220px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 7px;
+  transition: all 0.5s ease-in-out;
+}
+
+.account-icons{
+  transition: all 0.5s ease-in-out;
+}
+
+.account-icons.active{
+  color: #ffffff;
+}
+
+.my-account-links button.active {
+  background-color: #252525;
+  color: #ffffff;
+}
+.my-account-content{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 50vw;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 7px;
+  padding: 20px;
+}
+
+.personal-info-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: 60vh;
+}
+
+.personal-info-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 43vw;
+}
+
+.personal-info-header hr{
+  width: 100%;
+}
+
+.personal-info-inputs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  gap: 25px;
+}
+
+.personal-info-inputs input{
+  width: 20vw;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  border-radius: 5px;
+  padding: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 20px 0px;
+}
+
+.personal-adresses-container{
+  padding-top: 25px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.address-box{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  display: flex;
+  width: 43vw;
+  padding: 10px 5px 5px 5px; 
+  border-radius: 7px;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+}
+
+.address-box-icons{
+  top: 3px;
+  right: 10px;
+  position: absolute;
+  z-index: 10;
+  font-size: 19px;
+}
+
+.address-box-icons button{
+  border: none;
+  background-color: #ffffff;
+}
+
+.address-box-title{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10px 0 10px;
+}
+
+
+.address-box-address{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10px 0 10px;
+  margin-bottom: 10px;
+}
+
+.address-box-title input{
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  border-radius: 5px;
+  padding: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 20px 0px;
+}
+ 
+
+.address-box-address input{
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  border-radius: 5px;
+  padding: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 20px 0px;
+}
+  
+.address-box-buttons{
+  margin-top: 15px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  gap: 20px;
+}
+
+.address-box-button1, .address-box-button2{
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  background-color: #ffffff;
+  transition: 0.5s ease-in-out;
+}
+
+.address-box-button1:hover{
+  background-color: #008000;
+  color: #ffffff;
+}
+
+.address-box-button2:hover{
+  background-color: #0027d6;
+  color: #ffffff;
+}
+
+.change-password-container{
+  padding-top: 25px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.change-password-inputs{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+ 
+.change-password-inputs input{
+  width: 20vw;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+  border-radius: 5px;
+  padding: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 20px 0px;
+
+}
+
+.change-password-button{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-password-button button{
+  height: 45px;
+  padding: 0 20px 0 20px;
+}
+  /* ACCOUNT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
 /* ADMIN@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
 .admin-main-container {
   display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
+
+.admin-main-container0 {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 50px;
   align-items: center;
@@ -1759,7 +2085,7 @@ input:focus {
 
 .admin-user-addupdate{
   display: flex;
-  width: 80vw;
+  width: 50vw;
   padding: 20px;
   border: 1px solid rgb(170, 169, 169, 0.6);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -1771,6 +2097,12 @@ input:focus {
 
 .admin-user-addupdate input{
   padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(170, 169, 169, 0.6);
+}
+
+.admin-user-addupdate select{
+  padding: 5px 132px 5px 5px;
   border-radius: 5px;
   border: 1px solid rgb(170, 169, 169, 0.6);
 }
@@ -1837,6 +2169,16 @@ input:focus {
   width: 13%;
 }
 
+.admin-table-header10{
+  width: 25%;
+  border-right: none !important;
+}
+
+.admin-table-header11{
+  width: 15%;
+  border-right: none !important;
+}
+
 .admin-table-list {
   display: flex;
   flex-direction: column;
@@ -1863,6 +2205,7 @@ input:focus {
 
 .admin-table-col2 {
   width: 10%;
+  text-align: center;
 }
 
 .admin-table-col3 {
@@ -1897,6 +2240,10 @@ input:focus {
 
 .admin-table-col9 {
   width: 13%;
+}
+
+.admin-table-col10 {
+  width: 30%;
 }
 
 .admin-status-select{

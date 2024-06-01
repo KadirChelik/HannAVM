@@ -4,7 +4,15 @@ import { getProduct, updateProduct, getSignedUrl, uploadFileToSignedUrl } from '
 import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
 
-function UpdateProduct() {
+function UpdateProduct(isAdmin) {
+  if (!isAdmin) {
+    console.log('isAdmin:', isAdmin);
+    return (
+      <div className='admin-main-container0'>
+        <h1>Yetkili değilsiniz!</h1>
+      </div>
+    ) 
+  }
   const { id } = useParams();
   const [state, dispatch] = useReducer(productReducer, initialState);
   const [product, setProduct] = useState({

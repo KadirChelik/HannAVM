@@ -6,7 +6,15 @@ import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
 import { NavLink } from 'react-router-dom';
 
-function ProductManagement() {
+function ProductManagement({isAdmin}) {
+  if (!isAdmin) {
+    console.log('isAdmin:', isAdmin);
+    return (
+      <div className='admin-main-container0'>
+        <h1>Yetkili değilsiniz!</h1>
+      </div>
+    )
+  }
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);

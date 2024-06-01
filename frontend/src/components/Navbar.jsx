@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "./CartContext";
 import logo1 from "/img/logo1.png";
-function NavBar() {
+function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
   const [isClicked, setIsClicked] = useState(false);
   const [dropdownMenu, setDropdownMenu] = useState(null);
   const location = useLocation();
@@ -452,22 +452,37 @@ function NavBar() {
         }
       >
         <ul>
-          <li>
-            <NavLink to="/register">
-              <FontAwesomeIcon icon={faImagePortrait} /> Kayıt Ol
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">
-              <FontAwesomeIcon icon={faRightToBracket} /> Giriş Yap
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin">
-              <FontAwesomeIcon icon={faHeart} /> Admin
-            </NavLink>
-          </li>
-        </ul>
+    {authControl ? "" : (<li>
+      <NavLink to="/register">
+        <FontAwesomeIcon icon={faImagePortrait} /> Kayıt Ol
+      </NavLink>
+    </li>)}
+    {authControl ? (
+      <li onClick={() =>{
+       setAuthControl(false)
+       setIsAdmin(false) }}>
+        <NavLink to="/login">
+
+        <FontAwesomeIcon icon={faRightToBracket} /> Çıkış Yap
+        </NavLink>
+      </li>
+    ) : (
+      <li>
+        <NavLink to="/login">
+          <FontAwesomeIcon icon={faRightToBracket} /> Giriş Yap
+        </NavLink>
+      </li>
+    )}
+    {authControl ? isAdmin ? (<li>
+      <NavLink to="/admin">
+      <FontAwesomeIcon icon={faUser} /> Admin
+      </NavLink>
+    </li>) :(<li>
+      <NavLink to="/account">
+      <FontAwesomeIcon icon={faUser} /> Hesabım
+      </NavLink>
+    </li>): null}
+  </ul>
       </div>
     </>
   );

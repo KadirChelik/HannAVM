@@ -8,11 +8,11 @@ const Payment = () => {
       <form>
         <div>
           <div>Kart Sahibi</div>
-          <input type="text" name="cardholder" placeholder="Kart Sahibinin Adını Girin" />
+          <input type="text" name="cardholder" placeholder="Kart Sahibinin Adını Giriniz" />
         </div>
         <div>
           <div>Kart Numarası</div>
-          <input type="text" name="cardnumber" placeholder="Kart Numaranızı Girin"/>
+          <input type="text" name="cardnumber" placeholder="Kart Numaranızı Giriniz"/>
         </div>
         <div className='payment-bottom'>
             <div>

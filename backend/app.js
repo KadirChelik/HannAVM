@@ -1,10 +1,12 @@
 import express from 'express';
+import passport from 'passport';
 import path from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import dotenv from 'dotenv';
 import './app_api/models/db.js';
+import './app_api/config/passport.js';
 import s3Router from './app_api/routes/s3Router.js';
 import apiRouter from './app_api/routes/index.js';
 
@@ -15,6 +17,7 @@ dotenv.config();
 
 const app = express();
 
+app.use(passport.initialize());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

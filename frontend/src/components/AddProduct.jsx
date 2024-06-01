@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { addProduct, fetchProducts, getSignedUrl, uploadFileToSignedUrl } from '../services/ProductDataService';
 
-function AddProduct() {
+function AddProduct(isAdmin) {
+  if (!isAdmin) {
+    console.log('isAdmin:', isAdmin);
+    return (
+      <div className='admin-main-container0'>
+        <h1>Yetkili değilsiniz!</h1>
+      </div>
+    ) 
+  }
   const [product, setProduct] = useState({
     id: '',
     name: '',
