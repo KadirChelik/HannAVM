@@ -52,12 +52,14 @@ function OrderDetails() {
               required
             />
           </div>
+          <div className='cart-checkout-container1'>
           <NavLink to="/payment">
-              <button onClick={handleSubmit} className="cart-checkout">
+              <button className="cart-checkout1">
                 <div>Ödemeye Geç</div>{" "}
                 <i className="checkout-icon fa-solid fa-arrow-right-long"></i>
               </button>
             </NavLink>
+          </div>
         </form>
       </div>
     </div>

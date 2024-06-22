@@ -2,10 +2,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 function ProductList({ products }) {
-    
+  const isMobile = window.innerWidth < 768;
     return (
       <div>
-        <div className='filter-results'>
+        <div className={isMobile ? "filter-results-mobile" : 'filter-results'}>
           {products.map((product, index) => (
             <NavLink to={`/product/${product._id}`} key={index}>
               <div className="search-product">

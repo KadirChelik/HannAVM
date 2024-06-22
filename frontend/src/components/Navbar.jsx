@@ -67,9 +67,11 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
     <>
       <div className="my-navbar">
         <div className="my-logo-and-bar">
+          <NavLink to="/">
           <div className="my-logo">
             <img src={logo1} alt="" />
           </div>
+          </NavLink>
           <div className="my-mobile" onClick={handleClick}>
             {isClicked ? (
               <span className="my-icon">
@@ -85,7 +87,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
         <div className={isClicked ? "my-links active" : "my-links"}>
           <ul className="my-links-ul">
             <li>
-              <NavLink to="/">
+              <NavLink to="/" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/"
@@ -98,7 +100,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/indirim">
+              <NavLink to="/indirim" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/indirim"
@@ -115,7 +117,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
               onMouseLeave={onMouseLeave}
               className="my-padding"
             >
-              <NavLink to="/kadin">
+              <NavLink to="/kadin" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/kadin" || dropdownMenu === "woman"
@@ -133,7 +135,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
               onMouseLeave={onMouseLeave}
               className="my-padding"
             >
-              <NavLink to="/erkek">
+              <NavLink to="/erkek" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/erkek" || dropdownMenu === "man"
@@ -151,7 +153,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
               onMouseLeave={onMouseLeave}
               className="my-padding"
             >
-              <NavLink to="/cocuk">
+              <NavLink to="/cocuk" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/cocuk" || dropdownMenu === "child"
@@ -169,7 +171,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
               onMouseLeave={onMouseLeave}
               className="my-padding"
             >
-              <NavLink to="/aksesuar">
+              <NavLink to="/aksesuar" onClick={handleClick}>
                 <span
                   className={
                     location.pathname === "/aksesuar" ||
@@ -186,14 +188,14 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
           </ul>
           <ul className="my-icons-ul">
             <li>
-              <NavLink to="/search">
+              <NavLink to="/search" onClick={handleClick}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/cart">
+              <NavLink to="/cart" onClick={handleClick}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faCartShopping} />
                   {totalQuantity > 0 && (
@@ -453,7 +455,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
       >
         <ul>
     {authControl ? "" : (<li>
-      <NavLink to="/register">
+      <NavLink to="/register" onClick={handleClick}>
         <FontAwesomeIcon icon={faImagePortrait} /> Kayıt Ol
       </NavLink>
     </li>)}
@@ -461,24 +463,24 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
       <li onClick={() =>{
        setAuthControl(false)
        setIsAdmin(false) }}>
-        <NavLink to="/login">
+        <NavLink to="/login" onClick={handleClick}>
 
         <FontAwesomeIcon icon={faRightToBracket} /> Çıkış Yap
         </NavLink>
       </li>
     ) : (
       <li>
-        <NavLink to="/login">
+        <NavLink to="/login" onClick={handleClick}>
           <FontAwesomeIcon icon={faRightToBracket} /> Giriş Yap
         </NavLink>
       </li>
     )}
     {authControl ? isAdmin ? (<li>
-      <NavLink to="/admin">
+      <NavLink to="/admin" onClick={handleClick}>
       <FontAwesomeIcon icon={faUser} /> Admin
       </NavLink>
     </li>) :(<li>
-      <NavLink to="/account">
+      <NavLink to="/account" onClick={handleClick}>
       <FontAwesomeIcon icon={faUser} /> Hesabım
       </NavLink>
     </li>): null}

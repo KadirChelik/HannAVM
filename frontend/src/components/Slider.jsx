@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, {useState, useEffect, useReducer } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Product from './Product';
@@ -7,7 +7,7 @@ import { productReducer, initialState } from '../services/ProductReducer';
 import Loading from './Loading';
 function Slider() {
   const [state, dispatch] = useReducer(productReducer, initialState);
-
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     dispatch({ type: 'FETCH_INIT' });
     fetchProducts()
@@ -66,6 +66,17 @@ function Slider() {
       slidesToSlide: 1 // optional, default to 1.
     }
   };
+
+  useEffect(() => {
+    // Ekran genişliğine göre isMobile state'ini güncelle
+    const updateIsMobile = () => {
+      setIsMobile(window.innerWidth <= 1024); // Mobil cihazlar için 1024 genişlik sınırı
+    };
+    window.addEventListener('resize', updateIsMobile);
+    updateIsMobile(); // Component yüklendiğinde bir kere çalıştır
+
+    return () => window.removeEventListener('resize', updateIsMobile); // Temizlik işlemi
+  }, []);
   return (
     <div className='slider'>
       <h1>Şık Seçenekler</h1>
@@ -74,7 +85,7 @@ function Slider() {
       renderButtonGroupOutside={true} 
     customTransition="all 1s ease-in-out" 
     infinite
-    autoPlay
+    autoPlay={!isMobile}
     draggable
     swipeable
     minimumTouchDrag={80}

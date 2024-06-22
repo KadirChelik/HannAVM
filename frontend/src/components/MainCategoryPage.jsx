@@ -99,12 +99,17 @@ function MainCategoryPage() {
   };
 
   const pageTitle = pageTitles[location.pathname] || location.pathname.slice(1);
-
+  const isMobile = window.innerWidth < 768;
   return (
     <div className='category-page'>
+      <div className='category-page-header'>
+        {isMobile ? (<FilterSidebar onFilterChange={handleFilterChange} products={filteredProducts} activeFilters={filters} />) :""}
+      <div className='category-page-h1'>
       <h1>{pageTitle}</h1>
+      </div>
+      </div>
       <div className='category-page-container'>
-        <FilterSidebar onFilterChange={handleFilterChange} products={filteredProducts} activeFilters={filters} />
+      {isMobile ? "" :(<FilterSidebar onFilterChange={handleFilterChange} products={filteredProducts} activeFilters={filters} />)}
         {state.isLoading ? <Loading /> : state.isError ? <p>Ürünler alınamadı.</p> : <ProductList products={filteredProducts} />}
       </div>
     </div>
