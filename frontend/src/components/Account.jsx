@@ -175,7 +175,7 @@ function Account({ authControl, email }) {
             <div className='personal-info-header'><h5>Adreslerim</h5>
               <hr /></div>
               <div><p>Herhangi bir değişikliği kaydetmek için "Güncelle" butonuna tıklayınız.</p></div>
-            <div>
+            <div className='adress-boxes-container'>
               {userData.addresses.map((address, index) => (
                 <div className='address-box' key={index}>
                   <div className='address-box-icons'>

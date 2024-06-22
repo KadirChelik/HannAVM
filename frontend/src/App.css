@@ -227,10 +227,10 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-around;
-    gap: 1rem;
+    justify-content: start;
+    gap: 6rem;
     transition: 1s ease-in-out;
-    padding: 30px;
+    padding: 50px 30px 30px 30px;
     transform: translateX(100%);
     z-index: 1000;
   }
@@ -283,10 +283,10 @@ a {
   }
 
   .profile-dropdown-menu {
-    top: 80vh;
+    top: 75vh;
     position: fixed;
     width: 200px;
-    height: 200px;
+    height: 80px;
     transition: 1s ease-in-out;
     transform: translateX(120%) !important;
     z-index: 0 ;
@@ -298,10 +298,10 @@ a {
   }
   
   .profile-dropdown-menu.active {
-    top: 80vh;
+    top: 75vh;
     position: fixed;
     width: 200px;
-    height: 200px;
+    height: 80px;
     transition: 1s ease-in-out;
     transform: translateX(-10%) !important;
     z-index: 1099 !important ;
@@ -2144,7 +2144,9 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: start;
-  width: 65vw;
+  gap: 10px;
+  width: 90vw;
+  max-width: 1000px;
 }
 .my-account-links{
   display: flex;
@@ -2186,7 +2188,8 @@ input:focus {
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  width: 50vw;
+  width: 80vw;
+  max-width: 800px;
   border: 1px solid rgb(170, 169, 169, 0.6);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 7px;
@@ -2237,13 +2240,21 @@ input:focus {
   flex-direction: column;
 }
 
+.adress-boxes-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .address-box{
   position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 15px;
   display: flex;
-  width: 43vw;
+  width: 100%;
   padding: 10px 5px 5px 5px; 
   border-radius: 7px;
   border: 1px solid rgb(170, 169, 169, 0.6);
@@ -2358,6 +2369,237 @@ input:focus {
   height: 45px;
   padding: 0 20px 0 20px;
 }
+
+@media (max-width: 768px) {
+  /* Genel stil */
+.my-account-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+  padding: 0 20px; /* Kenar boşlukları ekledik */
+}
+
+.my-account-header {
+  display: flex;
+  gap: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%; /* Tam genişlik */
+}
+
+.my-account-header i {
+  font-size: 30px;
+  padding-top: 7px;
+}
+
+.my-account-content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%; /* Tam genişlik */
+  flex-wrap: wrap; /* İçeriklerin sıralanması için sarın */
+}
+
+.my-account-links {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: start;
+  height: auto; /* Yüksekliği otomatik ayarladık */
+  flex-direction: column;
+  width: 100%; /* Tam genişlik */
+}
+
+.my-account-links button {
+  display: flex;
+  justify-content: start;
+  gap: 6px;
+  align-items: center;
+  width: 100%; /* Tam genişlik */
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(170, 169, 169, 0.6);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 7px;
+  transition: all 0.5s ease-in-out;
+}
+
+.account-icons {
+  transition: all 0.5s ease-in-out;
+}
+
+.account-icons.active {
+  color: #ffffff;
+}
+
+.my-account-links button.active {
+  background-color: #252525;
+  color: #ffffff;
+}
+
+.my-account-content {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%; /* Tam genişlik */
+  margin-top: 20px; /* Boşluk eklendi */
+  padding: 20px;
+  box-sizing: border-box; /* Kutu modelini düzeltmek için */
+  border: 1px solid rgba(170, 169, 169, 0.6);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 7px;
+}
+
+.personal-info-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: auto; /* Yüksekliği otomatik ayarladık */
+  width: 100%; /* Tam genişlik */
+  padding: 20px; /* Boşluk eklendi */
+  box-sizing: border-box; /* Kutu modelini düzeltmek için */
+}
+
+.personal-info-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; /* Tam genişlik */
+  padding: 10px; /* Boşluk eklendi */
+  box-sizing: border-box; /* Kutu modelini düzeltmek için */
+}
+
+.personal-info-header hr {
+  width: 100%;
+}
+
+.personal-info-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%; /* Tam genişlik */
+  gap: 25px;
+  padding: 10px; /* Boşluk eklendi */
+  box-sizing: border-box; /* Kutu modelini düzeltmek için */
+}
+
+.personal-info-inputs input {
+  width: 100%; /* Tam genişlik */
+}
+
+.personal-adresses-container {
+  padding-top: 25px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.address-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  width: 100%; /* Tam genişlik */
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(170, 169, 169, 0.6);
+}
+
+.address-box-icons {
+  top: 3px;
+  right: 10px;
+  position: absolute;
+  z-index: 10;
+  font-size: 19px;
+}
+
+.address-box-icons button {
+  border: none;
+  background-color: #ffffff;
+}
+
+.address-box-title,
+.address-box-address {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.address-box-title input,
+.address-box-address input {
+  width: 100%; /* Tam genişlik */
+}
+
+.address-box-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%; /* Tam genişlik */
+  padding: 10px;
+  gap: 20px;
+}
+
+.address-box-button1,
+.address-box-button2 {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid rgba(170, 169, 169, 0.6);
+  background-color: #ffffff;
+  transition: 0.5s ease-in-out;
+}
+
+.address-box-button1:hover {
+  background-color: #008000;
+  color: #ffffff;
+}
+
+.address-box-button2:hover {
+  background-color: #0027d6;
+  color: #ffffff;
+}
+
+.change-password-container {
+  padding-top: 25px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.change-password-inputs {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.change-password-inputs input {
+  width: 100%; /* Tam genişlik */
+}
+
+.change-password-button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-password-button button {
+  height: 45px;
+  padding: 0 20px;
+}
+
+}
+
   /* ACCOUNT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
 /* ADMIN@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */

@@ -8,8 +8,9 @@ const Payment = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
+  const [cardholder, setCardholder] = useState('');
+  const [errors, setErrors] = useState({});
 
-  // Sepetteki toplam tutarı hesaplayan işlev
   const calculateTotal = () => {
     const total = cart.reduce((total, product) => {
       const price = Number(product.price.replace(",", "."));
@@ -20,54 +21,75 @@ const Payment = () => {
     return Number(total) + kargoUcreti;
   };
 
-  // Ödeme tamamla butonuna tıklanınca çağrılan işlev
-  const handlePayment = () => {
-    const total = calculateTotal().toFixed(2);
-    alert(`Sepetteki toplam tutar: ${total} TL. Kartınızdan ${total} TL ödeme gerçekleşti.`);
+  const handlePayment = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      const total = calculateTotal().toFixed(2);
+      alert(`Sepetteki toplam tutar: ${total} TL. Kartınızdan ${total} TL ödeme gerçekleşti.`);
+    } else {
+      alert('Lütfen tüm alanları doğru şekilde doldurunuz.');
+    }
   };
 
-  // Kart Numarası formatlama işlevi
   const handleCardNumberChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
-    value = value.slice(0, 16); // Maksimum 16 rakam al
-
-    // 4 rakamdan sonra boşluk ekle
-    const formattedValue = value
-      .match(/.{1,4}/g)
-      ?.join(' ')
-      .trim() || '';
-
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.slice(0, 16);
+    const formattedValue = value.match(/.{1,4}/g)?.join(' ').trim() || '';
     setCardNumber(formattedValue);
   };
 
-  // Son Kullanma Tarihi formatlama işlevi
   const handleExpiryDateChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
-    if (value.length > 4) value = value.slice(0, 4); // Maksimum 4 rakam al
-
-    // Son kullanma tarihini `MM/YY` formatına çevir
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 4) value = value.slice(0, 4);
     if (value.length > 2) {
       value = `${value.slice(0, 2)}/${value.slice(2)}`;
     }
     setExpiryDate(value);
   };
 
-  // CVV kodu değiştirme işlevi
   const handleCvvChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
+    const value = e.target.value.replace(/\D/g, '');
     if (value.length <= 3) {
-      setCvv(value); // Maksimum 3 rakam al
+      setCvv(value);
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!cardholder) {
+      newErrors.cardholder = 'Kart sahibi adı gereklidir.';
+    }
+    if (!cardNumber || cardNumber.replace(/\s/g, '').length !== 16) {
+      newErrors.cardNumber = 'Geçerli bir kart numarası giriniz.';
+    }
+    if (!expiryDate || expiryDate.length !== 5 || !/^\d{2}\/\d{2}$/.test(expiryDate)) {
+      newErrors.expiryDate = 'Son kullanma tarihi AA/YY formatında olmalıdır.';
+    }
+    if (!cvv || cvv.length !== 3) {
+      newErrors.cvv = 'Geçerli bir CVV kodu giriniz.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
     <div className='payment-container'>
       <h1>Ödeme Bilgileri</h1>
       <div className="payment">
-        <form>
+        <form onSubmit={handlePayment}>
           <div>
             <div>Kart Sahibi</div>
-            <input type="text" name="cardholder" placeholder="Kart Sahibinin Adını Giriniz" />
+            <input
+              type="text"
+              name="cardholder"
+              placeholder="Kart Sahibinin Adını Giriniz"
+              value={cardholder}
+              onChange={(e) => setCardholder(e.target.value)}
+              required
+            />
+            {errors.cardholder && <span className="error">{errors.cardholder}</span>}
           </div>
           <div>
             <div>Kart Numarası</div>
@@ -77,8 +99,10 @@ const Payment = () => {
               placeholder="Kart Numaranızı Giriniz"
               value={cardNumber}
               onChange={handleCardNumberChange}
-              maxLength="19" // `1234 1234 1234 1234` formatı için 19 karakter
+              maxLength="19"
+              required
             />
+            {errors.cardNumber && <span className="error">{errors.cardNumber}</span>}
           </div>
           <div className='payment-bottom'>
             <div>
@@ -89,8 +113,10 @@ const Payment = () => {
                 placeholder="AA/YY"
                 value={expiryDate}
                 onChange={handleExpiryDateChange}
-                maxLength="5" // `MM/YY` formatı için 5 karakter
+                maxLength="5"
+                required
               />
+              {errors.expiryDate && <span className="error">{errors.expiryDate}</span>}
             </div>
             <div>
               <div>CVV</div>
@@ -100,12 +126,14 @@ const Payment = () => {
                 placeholder="CVV"
                 value={cvv}
                 onChange={handleCvvChange}
-                maxLength="3" // Maksimum 3 karakter
+                maxLength="3"
+                required
               />
+              {errors.cvv && <span className="error">{errors.cvv}</span>}
             </div>
           </div>
+          <button type="submit">Ödemeyi Tamamla</button>
         </form>
-        <button onClick={handlePayment}>Ödemeyi Tamamla</button>
       </div>
     </div>
   );

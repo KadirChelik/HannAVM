@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // useHistory yerine useNavigate kullanılıyor
 
 function OrderDetails() {
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigate = useNavigate(); // useNavigate kullanarak yönlendirme yapacağız
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Teslim Alacak Kişi:', { fullName, address, phoneNumber });
-    setFullName('');
-    setAddress('');
-    setPhoneNumber('');
+
+    // Tüm alanların doldurulup doldurulmadığını kontrol et
+    if (fullName && address && phoneNumber) {
+      console.log('Teslim Alacak Kişi:', { fullName, address, phoneNumber });
+
+      // Yönlendirme işlemi
+      navigate('/payment');
+
+      // Alanları temizle
+      setFullName('');
+      setAddress('');
+      setPhoneNumber('');
+    } else {
+      alert('Lütfen tüm bilgileri doldurunuz.');
+    }
   };
 
   return (
@@ -53,12 +65,10 @@ function OrderDetails() {
             />
           </div>
           <div className='cart-checkout-container1'>
-          <NavLink to="/payment">
-              <button className="cart-checkout1">
-                <div>Ödemeye Geç</div>{" "}
-                <i className="checkout-icon fa-solid fa-arrow-right-long"></i>
-              </button>
-            </NavLink>
+            <button className="cart-checkout1" type="submit">
+              <div>Ödemeye Geç</div>
+              <i className="checkout-icon fa-solid fa-arrow-right-long"></i>
+            </button>
           </div>
         </form>
       </div>

@@ -11,6 +11,7 @@ import {
   faXmark,
   faRightToBracket,
   faImagePortrait,
+  faHandFist,
 } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "./CartContext";
 import logo1 from "/img/logo1.png";
@@ -67,12 +68,12 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
     <>
       <div className="my-navbar">
         <div className="my-logo-and-bar">
-          <NavLink to="/">
+          <NavLink to="/" onClick={handleClick}>
           <div className="my-logo">
             <img src={logo1} alt="" />
           </div>
           </NavLink>
-          <div className="my-mobile" onClick={handleClick}>
+          <div className="my-mobile" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
             {isClicked ? (
               <span className="my-icon">
                 <FontAwesomeIcon icon={faXmark} />
@@ -188,14 +189,14 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
           </ul>
           <ul className="my-icons-ul">
             <li>
-              <NavLink to="/search" onClick={handleClick}>
+              <NavLink to="/search" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/cart" onClick={handleClick}>
+              <NavLink to="/cart" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faCartShopping} />
                   {totalQuantity > 0 && (
