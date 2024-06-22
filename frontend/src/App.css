@@ -195,6 +195,9 @@ a {
 
 
 @media screen and (max-width: 769px) {
+  .mobile-hide-icon {
+    display: none !important;
+  }
   .my-navbar {
     position: fixed;
     height: 90px;
