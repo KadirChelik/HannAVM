@@ -15,8 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "./CartContext";
 import logo1 from "/img/logo1.png";
-
-function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
+function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
   const [isClicked, setIsClicked] = useState(false);
   const [dropdownMenu, setDropdownMenu] = useState(null);
   const location = useLocation();
@@ -78,17 +77,16 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
     (total, product) => total + product.quantity,
     0
   );
-
   return (
     <>
       <div className="my-navbar">
         <div className="my-logo-and-bar">
           <NavLink to="/" onClick={handleClick}>
-            <div className="my-logo">
-              <img src={logo1} alt="" />
-            </div>
+          <div className="my-logo">
+            <img src={logo1} alt="" />
+          </div>
           </NavLink>
-          <div className="my-mobile" onClick={() => {handleClick(); setDropdownMenu(null);}}>
+          <div className="my-mobile" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
             {isClicked ? (
               <span className="my-icon">
                 <FontAwesomeIcon icon={faXmark} />
@@ -144,6 +142,7 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
                   Kadın{" "}<i className={`fa-solid fa-caret-down ${dropdownMenu === "woman" ? "links-hover active" : ""} mobile-hide-icon`}></i>
                 </span>
               </NavLink>
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("man")}
@@ -161,6 +160,7 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
                   Erkek{" "}<i className={`fa-solid fa-caret-down ${dropdownMenu === "man" ? "links-hover active" : ""} mobile-hide-icon`}></i>
                 </span>
               </NavLink>
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("child")}
@@ -178,6 +178,7 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
                   Çocuk{" "}<i className={`fa-solid fa-caret-down ${dropdownMenu === "child" ? "links-hover active" : ""} mobile-hide-icon`}></i>
                 </span>
               </NavLink>
+              
             </li>
             <li
               onMouseEnter={() => onMouseEnter("accessory")}
@@ -196,18 +197,19 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
                   Aksesuar{" "}<i className={`fa-solid fa-caret-down ${dropdownMenu === "accessory" ? "links-hover active" : ""} mobile-hide-icon`}></i>
                 </span>
               </NavLink>
+              
             </li>
           </ul>
           <ul className="my-icons-ul">
             <li>
-              <NavLink to="/search" onClick={() => {handleClick(); setDropdownMenu(null);}}>
+              <NavLink to="/search" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/cart" onClick={() => {handleClick(); setDropdownMenu(null);}}>
+              <NavLink to="/cart" onClick={()=> {handleClick(); setDropdownMenu(null);}}>
                 <span className="my-icon">
                   <FontAwesomeIcon icon={faCartShopping} />
                   {totalQuantity > 0 && (
@@ -232,7 +234,6 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
           </ul>
         </div>
       </div>
-
       <div
         onMouseEnter={() => onMouseEnter("woman")}
         onMouseLeave={onMouseLeave}
@@ -255,6 +256,42 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
           <li>
             <NavLink to="/kadin/gomlek">Gömlek</NavLink>
           </li>
+          <li>
+            <NavLink to="/kadin/pantolon">Pantolon</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/mont">Mont</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/bluz">Bluz</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/ceket">Ceket</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/etek">Etek</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/kazak">Kazak</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/tesettur">Tesettür</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/buyuk-beden">Büyük Beden</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/sweatshirt">Sweatshirt</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/kaban">Kaban</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/hirka">Hırka</NavLink>
+          </li>
+          <li>
+            <NavLink to="/kadin/ayakkabi">Ayakkabı</NavLink>
+          </li>
         </ul>
       </div>
 
@@ -275,10 +312,46 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
             <NavLink to="/erkek/tisort">Tişört</NavLink>
           </li>
           <li>
+            <NavLink to="/erkek/sort">Şort</NavLink>
+          </li>
+          <li>
             <NavLink to="/erkek/gomlek">Gömlek</NavLink>
           </li>
           <li>
+            <NavLink to="/erkek/esofman">Eşofman</NavLink>
+          </li>
+          <li>
             <NavLink to="/erkek/pantolon">Pantolon</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/ceket">Ceket</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/yelek">Yelek</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/kazak">Kazak</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/mont">Mont</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/takim-elbise">Takım Elbise</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/sweatshirt">Sweatshirt</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/kaban">Kaban</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/hirka">Hırka</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/blazer">Blazer</NavLink>
+          </li>
+          <li>
+            <NavLink to="/erkek/ayakkabı">Ayakkabı</NavLink>
           </li>
         </ul>
       </div>
@@ -294,16 +367,49 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
       >
         <ul>
           <li>
+            <NavLink to="/cocuk/bebek">Bebek</NavLink>
+          </li>
+          <li>
             <NavLink to="/cocuk/ic-giyim">İç Giyim</NavLink>
           </li>
           <li>
             <NavLink to="/cocuk/tisort">Tişört</NavLink>
           </li>
           <li>
-            <NavLink to="/cocuk/gomlek">Gömlek</NavLink>
+            <NavLink to="/cocuk/sort">Şort</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/sweatshirt">Sweatshirt</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/elbise">Elbise</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/gömlek">Gömlek</NavLink>
           </li>
           <li>
             <NavLink to="/cocuk/pantolon">Pantolon</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/esofman">Eşofman</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/mont">Mont</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/ceket">Ceket</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/hirka">Hırka</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/takim-elbise">Takım Elbise</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/kazak">Kazak</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cocuk/ayakkabi">Ayakkabı</NavLink>
           </li>
         </ul>
       </div>
@@ -319,13 +425,34 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
       >
         <ul>
           <li>
-            <NavLink to="/aksesuar/cuzdan">Cüzdan</NavLink>
-          </li>
-          <li>
             <NavLink to="/aksesuar/canta">Çanta</NavLink>
           </li>
           <li>
-            <NavLink to="/aksesuar/ayakkabi">Ayakkabı</NavLink>
+            <NavLink to="/aksesuar/parfum">Parfüm</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/taki">Takı</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/basortusu">Başörtüsü</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/gunes-gozlugu">Güneş Gözlüğü</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/saat">Saat</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/cuzdan">Cüzdan</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/valiz">Valiz</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/kemer">Kemer</NavLink>
+          </li>
+          <li>
+            <NavLink to="/aksesuar/kravat">Kıravat</NavLink>
           </li>
           <li>
             <NavLink to="/aksesuar/sapka">Şapka</NavLink>
@@ -334,8 +461,6 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
       </div>
 
       <div
-        onMouseEnter={() => onMouseEnter("profile")}
-        onMouseLeave={onMouseLeave}
         className={
           dropdownMenu === "profile"
             ? "profile-dropdown-menu active"
@@ -343,43 +468,39 @@ function NavBar({isAdmin, setIsAdmin, authControl, setAuthControl}) {
         }
       >
         <ul>
-          {!authControl ? (
-            <>
-              <li>
-                <NavLink to="/login">
-                  Giriş Yap <FontAwesomeIcon icon={faRightToBracket} />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/signup">
-                  Kayıt Ol <FontAwesomeIcon icon={faImagePortrait} />
-                </NavLink>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <NavLink to="/account">
-                  Hesabım <FontAwesomeIcon icon={faUser} />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  onClick={() => {
-                    setAuthControl(false);
-                    setIsAdmin(false);
-                  }}
-                >
-                  Çıkış Yap <FontAwesomeIcon icon={faHandFist} />
-                </NavLink>
-              </li>
-            </>
-          )}
-        </ul>
+    {authControl ? "" : (<li>
+      <NavLink to="/register" onClick={handleClick}>
+        <FontAwesomeIcon icon={faImagePortrait} /> Kayıt Ol
+      </NavLink>
+    </li>)}
+    {authControl ? (
+      <li onClick={() =>{
+       setAuthControl(false)
+       setIsAdmin(false) }}>
+        <NavLink to="/login" onClick={handleClick}>
+
+        <FontAwesomeIcon icon={faRightToBracket} /> Çıkış Yap
+        </NavLink>
+      </li>
+    ) : (
+      <li>
+        <NavLink to="/login" onClick={handleClick}>
+          <FontAwesomeIcon icon={faRightToBracket} /> Giriş Yap
+        </NavLink>
+      </li>
+    )}
+    {authControl ? isAdmin ? (<li>
+      <NavLink to="/admin" onClick={handleClick}>
+      <FontAwesomeIcon icon={faUser} /> Admin
+      </NavLink>
+    </li>) :(<li>
+      <NavLink to="/account" onClick={handleClick}>
+      <FontAwesomeIcon icon={faUser} /> Hesabım
+      </NavLink>
+    </li>): null}
+  </ul>
       </div>
     </>
   );
 }
-
 export default NavBar;
