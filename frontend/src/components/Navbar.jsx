@@ -57,6 +57,10 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
     setIsClicked(!isClicked);
   };
 
+  const handleClickLogo = () => {
+    setIsClicked(false);
+  };
+
   const onMouseEnter = (category) => {
     if (window.innerWidth < 769) {
       setDropdownMenu(null);
@@ -81,7 +85,7 @@ function NavBar({isAdmin,setIsAdmin,authControl,setAuthControl}) {
     <>
       <div className="my-navbar">
         <div className="my-logo-and-bar">
-          <NavLink to="/" onClick={handleClick}>
+          <NavLink to="/" onClick={handleClickLogo}>
           <div className="my-logo">
             <img src={logo1} alt="" />
           </div>
